@@ -19,12 +19,14 @@ class Main {
       if (selectedMenu == 1) {
         showBooks();
       } else if (selectedMenu == 2) {
-        showMembers();
+        addBook();
       } else if (selectedMenu == 3) {
-        addMember();
+        showMembers();
       } else if (selectedMenu == 4) {
-        borrowBook();
+        addMember();
       } else if (selectedMenu == 5) {
+        borrowBook();
+      } else if (selectedMenu == 6) {
         returnBook();
       } else {
         System.out.println("wrong input");
@@ -38,10 +40,11 @@ class Main {
   public static void showMenu() {
     System.out.println("================================");
     System.out.println("1. show books list");
-    System.out.println("2. show members list");
-    System.out.println("3. add member");
-    System.out.println("4. borrow book");
-    System.out.println("5. return book");
+    System.out.println("2. add book");
+    System.out.println("3. show members list");
+    System.out.println("4. add member");
+    System.out.println("5. borrow book");
+    System.out.println("6. return book");
     System.out.println("================================");
   }
 
@@ -91,6 +94,18 @@ class Main {
     }
   }
 
+  public static void addBook() {
+    Book book = new Book();
+
+    System.out.print("id : ");
+    book.id = scan.next();
+
+    System.out.print("title : ");
+    book.title = scan.next();
+
+    library.addBook(book);
+  }
+
   public static void showMembers() {
     for (Member member : library.members) {
       System.out.println(member.id + " " + member.name);
@@ -110,22 +125,30 @@ class Main {
   }
 
   public static void borrowBook() {
-    System.out.print("id member : ");
-    String memberId = scan.next();
-
-    System.out.print("id book : ");
-    String bookId = scan.next();
-
-    library.giveBook(memberId, bookId);
+    try {
+      System.out.print("id member : ");
+      String memberId = scan.next();
+  
+      System.out.print("id book : ");
+      String bookId = scan.next();
+  
+      library.giveBook(memberId, bookId);
+    } catch (IndexOutOfBoundsException e) {
+      System.out.println("Terjadi error pada inputan");
+    }
   }
 
   public static void returnBook() {
-    System.out.print("id member : ");
-    String memberId = scan.next();
-
-    System.out.print("id book : ");
-    String bookId = scan.next();
-
-    library.receiveBook(memberId, bookId);
+    try {
+      System.out.print("id member : ");
+      String memberId = scan.next();
+  
+      System.out.print("id book : ");
+      String bookId = scan.next();
+  
+      library.receiveBook(memberId, bookId);
+    } catch (IndexOutOfBoundsException e) {
+      System.out.println("Terjadi error pada inputan");
+    }
   }
 }
